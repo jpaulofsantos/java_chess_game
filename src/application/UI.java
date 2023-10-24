@@ -6,16 +6,22 @@ public class UI {
 
     public static void printBoard(ChessPiece[][] chessPieces) {
         System.out.println();
+        System.out.println("                A B C D E F G H");
+        System.out.println("                | | | | | | | |");
+
         for (int i=0; i<chessPieces.length; i++) { //loop nas linhas da matriz
-            System.out.print("     " + (8-i) + "  "); //imprimindo o começo da linha
+
+            System.out.print("     linha " + (8-i) + "    "); //imprimindo o começo da linha
             for (int j=0; j<chessPieces.length; j++)  { //loop nas colunas (ex: preenche na linha 0, as colunas 0 a 7 com o "-"
                 //System.out.print("- ");
+                //System.out.print(i+j + " ");
                 printPiece(chessPieces[i][j]); //imprimindo a Piece na posição da matriz informada
             }
             System.out.println(); //pulando uma linha para imprimir a proxima linha do for
         }
 
-        System.out.print("        A B C D E F G H"); //imprimindo as colunas no final do tabuleiro
+        System.out.println("                | | | | | | | |");
+        System.out.print("                A B C D E F G H"); //imprimindo as colunas no final do tabuleiro
         System.out.println();
     }
 
