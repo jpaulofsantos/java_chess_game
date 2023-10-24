@@ -17,6 +17,12 @@ public class Board {
         return pieces[row][column];
     }
 
+    public void placePiece(Piece piece, Position position) {
+        //atribuindo uma peça na posição da matriz informada.
+        pieces[position.getRow()][position.getColumn()] = piece; // a matriz de pieces é a declarada na classe e iniciada no construtor;
+        piece.position = position; //acesso ao position é possivel pois estamos dentro do mesmo pacote
+    }
+
     public Piece piece(Position position){
         return pieces[position.getRow()][position.getColumn()];
     }

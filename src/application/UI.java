@@ -1,6 +1,11 @@
 package application;
 
+import boardgame.Piece;
 import chess.ChessPiece;
+import chess.pieces.King;
+import chess.pieces.Rook;
+
+import static chess.Color.WHITE;
 
 public class UI {
 
@@ -29,7 +34,8 @@ public class UI {
         if (chessPiece == null) {
             System.out.print("-");
         } else {
-            System.out.print(chessPiece);
+            //System.out.print(chessPiece);
+            System.out.print(PieceSymbolFactory.getSymbol(chessPiece));
         }
         System.out.print(" ");
     }
@@ -44,5 +50,30 @@ public class UI {
             System.out.println();
         }
         System.out.println("  A B C D E F G H");
+    }
+
+    public static class PieceSymbolFactory {
+        private static final int whiteKing = 2654;
+        private static final int blackKing = 0x265A;
+        private static final int whiteRook = 2656;
+        private static final int blackRook = 0x265C;
+
+        static char getSymbol(ChessPiece piece) {
+            if (piece instanceof King) {
+                if (piece.getColor() == WHITE) {
+                    return (char) (Integer.parseInt(String.valueOf(whiteKing), 16));
+                } else {
+                    return (char) (Integer.parseInt(String.valueOf(blackKing)));
+                }
+            }
+            if (piece instanceof Rook) {
+                if (piece.getColor() == WHITE) {
+                    return (char) (Integer.parseInt(String.valueOf(whiteRook), 16));
+                } else {
+                    return (char) (Integer.parseInt(String.valueOf(blackRook)));
+                }
+            }
+            return 0;
+        }
     }
 }
