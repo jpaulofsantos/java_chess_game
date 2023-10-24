@@ -11,8 +11,8 @@ public class UI {
 
     public static void printBoard(ChessPiece[][] chessPieces) {
         System.out.println();
-        System.out.println("                A B C D E F G H");
-        System.out.println("                | | | | | | | |");
+        System.out.println("                A  B  C  D  E  F  G  H");
+        System.out.println("                |  |  |  |  |  |  |  |");
 
         for (int i=0; i<chessPieces.length; i++) { //loop nas linhas da matriz
 
@@ -25,17 +25,17 @@ public class UI {
             System.out.println(); //pulando uma linha para imprimir a proxima linha do for
         }
 
-        System.out.println("                | | | | | | | |");
-        System.out.print("                A B C D E F G H"); //imprimindo as colunas no final do tabuleiro
+        System.out.println("                |  |  |  |  |  |  |  |");
+        System.out.print("                A  B  C  D  E  F  G  H"); //imprimindo as colunas no final do tabuleiro
         System.out.println();
     }
 
     private static void printPiece(ChessPiece chessPiece) {
         if (chessPiece == null) {
-            System.out.print("-");
+            System.out.print("- ");
         } else {
             //System.out.print(chessPiece);
-            System.out.print(PieceSymbolFactory.getSymbol(chessPiece));
+            System.out.print("" + PieceSymbolFactory.getSymbol(chessPiece));
         }
         System.out.print(" ");
     }

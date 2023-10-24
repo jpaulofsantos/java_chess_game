@@ -14,6 +14,11 @@ public class ChessMatch {
         board = new Board(8,8);
         initialSetup();
     }
+    private void initialSetup() {
+        board.placePiece(new Rook(board, Color.WHITE), new Position(2,0));
+        board.placePiece(new Rook(board, Color.BLACK), new Position(2,1));
+        board.placePiece(new King(board, Color.WHITE), new Position(0,4));
+    }
 
     public ChessPiece[][] getPieces() {
         ChessPiece[][] matriz = new ChessPiece[board.getRows()][board.getColumns()];
@@ -23,11 +28,5 @@ public class ChessMatch {
             }
         }
         return matriz;
-    }
-
-    private void initialSetup() {
-        board.placePiece(new Rook(board, Color.WHITE), new Position(0,0));
-        board.placePiece(new Rook(board, Color.WHITE), new Position(0,7));
-        board.placePiece(new King(board, Color.WHITE), new Position(0,4));
     }
 }
