@@ -2,8 +2,12 @@ package application;
 
 import boardgame.Piece;
 import chess.ChessPiece;
+import chess.ChessPosition;
 import chess.Color;
 import chess.pieces.*;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import static chess.Color.WHITE;
 
@@ -27,6 +31,19 @@ public class UI {
     public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
+    public static ChessPosition readChessPosition(Scanner scanner) {
+        try {
+            String string = scanner.next();
+            char column = string.charAt(0);
+            int row = Integer.parseInt(string.substring(1));
+
+            return new ChessPosition(column, row);
+
+        } catch (RuntimeException e) {
+            throw new InputMismatchException("Erro. Dados devem ser entre a1 e h8");
+        }
+    }
 
     public static void printBoard(ChessPiece[][] chessPieces) {
         System.out.println();

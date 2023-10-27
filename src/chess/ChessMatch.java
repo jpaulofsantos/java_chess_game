@@ -1,6 +1,7 @@
 package chess;
 
 import boardgame.Board;
+import boardgame.BoardException;
 import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.*;
@@ -16,6 +17,33 @@ public class ChessMatch {
 
     private void placeNewPiece(char column, int row,  ChessPiece piece) { //método passando as posições do xadrez (a8) ao inves da matriz
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
+    }
+
+    public ChessPiece performeChessMove(ChessPosition sourcePosition, ChessPosition targetPosition ) {
+
+        Position source = sourcePosition.toPosition();
+        Position target = targetPosition.toPosition();
+        
+        validadeSourcePosition(source);
+        Piece capturedPiece = makeMove(source, target);
+
+        return (ChessPiece) capturedPiece;
+
+    }
+
+    private Piece makeMove(Position source, Position target) {
+
+        Piece p = board.removePiece(source);
+        Piece capturedPiece = board.removePiece(target);
+        board.placePiece(p, target);
+
+        return capturedPiece;
+    }
+
+    private void validadeSourcePosition(Position position) {
+        if (!board.thereIsAPiece(position)) {
+            throw new ChessException("Não existe peça na posição de origem!");
+        }
     }
 
     private void initialSetup() {
