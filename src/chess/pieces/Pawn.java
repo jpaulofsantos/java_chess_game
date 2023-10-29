@@ -16,6 +16,11 @@ public class Pawn extends ChessPiece {
     public String toString() {
         return "P";
     }
+
+    private boolean canMove (Position position) {
+        ChessPiece p = (ChessPiece) getBoard().piece(position);
+        return p == null || p.getColor() != getColor();
+    }
     @Override
     public boolean[][] possibleMoves() {
         boolean[][] matriz = new boolean[getBoard().getRows()][getBoard().getColumns()];
@@ -24,21 +29,13 @@ public class Pawn extends ChessPiece {
 
         //above
         p.setValues(position.getRow()-1, position.getColumn());
-        if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
-            matriz[p.getRow()][p.getColumn()] = true;
-            p.setRow(p.getRow()-1);
-        }
-        if (getBoard().positionExists(p) && isThereOpponentPiece(p)) { //verifica se a posição existe e se existe uma peça do adversário
+        if (getBoard().positionExists(p) && canMove(p)) {
             matriz[p.getRow()][p.getColumn()] = true;
         }
 
         //below
         p.setValues(position.getRow()+1, position.getColumn());
-        if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
-            matriz[p.getRow()][p.getColumn()] = true;
-            p.setRow(p.getRow()+1);
-        }
-        if (getBoard().positionExists(p) && isThereOpponentPiece(p)) { //verifica se a posição existe e se existe uma peça do adversário
+        if (getBoard().positionExists(p) && canMove(p)) {
             matriz[p.getRow()][p.getColumn()] = true;
         }
 
