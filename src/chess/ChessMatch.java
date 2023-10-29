@@ -19,6 +19,12 @@ public class ChessMatch {
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
     }
 
+    public boolean[][] possibleChessMoves(ChessPosition sourcePosition) {
+        Position position = sourcePosition.toPosition(); //convertendo a posição do xadrez para a posição da matriz.
+        validadeSourcePosition(position);
+        return board.piece(position).possibleMoves(); //retorna os movimentos possíveis da peça na posição;
+    }
+
     public ChessPiece performeChessMove(ChessPosition sourcePosition, ChessPosition targetPosition ) {
 
         Position source = sourcePosition.toPosition();
@@ -29,13 +35,11 @@ public class ChessMatch {
         Piece capturedPiece = makeMove(source, target);
 
         return (ChessPiece) capturedPiece;
-
     }
 
     private void validadeTargetPosition(Position source, Position target) {
         if (!board.piece(source).possibleMove(target)) {
             throw new ChessException("Movimento de destino não é válido para esta peça.");
-
         }
     }
 
@@ -57,6 +61,16 @@ public class ChessMatch {
         }
     }
 
+    public ChessPiece[][] getPieces() {
+        ChessPiece[][] matriz = new ChessPiece[board.getRows()][board.getColumns()];
+        for (int i=0; i< board.getRows(); i++) {
+            for (int j=0; j<board.getColumns(); j++) {
+                matriz[i][j] = (ChessPiece) board.piece(i,j);
+            }
+        }
+        return matriz;
+    }
+
     private void initialSetup() {
 
         placeNewPiece('a', 8, new Rook(board, Color.WHITE));
@@ -69,14 +83,14 @@ public class ChessMatch {
         placeNewPiece('g', 8, new Knight(board, Color.WHITE));
         placeNewPiece('h', 8, new Rook(board, Color.WHITE));
 
-        /*placeNewPiece('a', 7, new Pawn(board, Color.WHITE));
+        placeNewPiece('a', 7, new Pawn(board, Color.WHITE));
         placeNewPiece('b', 7, new Pawn(board, Color.WHITE));
         placeNewPiece('c', 7, new Pawn(board, Color.WHITE));
         placeNewPiece('d', 7, new Pawn(board, Color.WHITE));
         placeNewPiece('e', 7, new Pawn(board, Color.WHITE));
         placeNewPiece('f', 7, new Pawn(board, Color.WHITE));
         placeNewPiece('g', 7, new Pawn(board, Color.WHITE));
-        placeNewPiece('h', 7, new Pawn(board, Color.WHITE));*/
+        placeNewPiece('h', 7, new Pawn(board, Color.WHITE));
 
         placeNewPiece('a', 1, new Rook(board, Color.BLACK));
         //board.placePiece(new Rook(board, Color.BLACK), new Position(1,0));
@@ -88,25 +102,15 @@ public class ChessMatch {
         placeNewPiece('g', 1, new Knight(board, Color.BLACK));
         placeNewPiece('h', 1, new Rook(board, Color.BLACK));
 
-        /*placeNewPiece('a', 2, new Pawn(board, Color.BLACK));
+        //placeNewPiece('a', 2, new Pawn(board, Color.BLACK));
         placeNewPiece('b', 2, new Pawn(board, Color.BLACK));
         placeNewPiece('c', 2, new Pawn(board, Color.BLACK));
         placeNewPiece('d', 2, new Pawn(board, Color.BLACK));
         placeNewPiece('e', 2, new Pawn(board, Color.BLACK));
         placeNewPiece('f', 2, new Pawn(board, Color.BLACK));
         placeNewPiece('g', 2, new Pawn(board, Color.BLACK));
-        placeNewPiece('h', 2, new Pawn(board, Color.BLACK));*/
+        placeNewPiece('h', 2, new Pawn(board, Color.BLACK));
 
         //placeNewPiece('b', 8, new Knight(board, Color.WHITE));
-    }
-
-    public ChessPiece[][] getPieces() {
-        ChessPiece[][] matriz = new ChessPiece[board.getRows()][board.getColumns()];
-        for (int i=0; i< board.getRows(); i++) {
-            for (int j=0; j<board.getColumns(); j++) {
-                matriz[i][j] = (ChessPiece) board.piece(i,j);
-            }
-        }
-        return matriz;
     }
 }

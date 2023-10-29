@@ -62,7 +62,7 @@ public class UI {
             for (int j=0; j<chessPieces.length; j++)  { //loop nas colunas (ex: preenche na linha 0, as colunas 0 a 7 com o "-"
                 //System.out.print("- ");
                 //System.out.print(i+j + " ");
-                printPiece(chessPieces[i][j]); //imprimindo a Piece na posição da matriz informada
+                printPiece(chessPieces[i][j], false); //imprimindo a Piece na posição da matriz informada
             }
             System.out.println(); //pulando uma linha para imprimir a proxima linha do for
         }
@@ -73,9 +73,12 @@ public class UI {
         System.out.println();
     }
 
-    private static void printPiece(ChessPiece chessPiece) {
+    private static void printPiece(ChessPiece chessPiece, boolean backGround) {
+        if (backGround) {
+            System.out.print(ANSI_BLUE_BACKGROUND);
+        }
         if (chessPiece == null) {
-            System.out.print("-");
+            System.out.print("-" + ANSI_RESET);
         }
 
         /*else {
@@ -97,12 +100,37 @@ public class UI {
             System.out.print(8-i + " ");
             for (int j=0; j<chessPieces.length; j++) {
                 //System.out.print("- ");
-                printPiece(chessPieces[i][j]);
+                printPiece(chessPieces[i][j], false);
             }
             System.out.println();
         }
         System.out.println("  A B C D E F G H");
     }
+
+    public static void printBoard(ChessPiece[][] chessPieces, boolean[][] possibleMoves) {
+        System.out.println();
+        System.out.println("                A B C D E F G H");
+        System.out.println("                | | | | | | | |");
+        System.out.println("                _______________");
+
+        for (int i=0; i<chessPieces.length; i++) { //loop nas linhas da matriz
+
+            System.out.print("     linha " + (8-i) + "    "); //imprimindo o começo da linha
+            for (int j=0; j<chessPieces.length; j++)  { //loop nas colunas (ex: preenche na linha 0, as colunas 0 a 7 com o "-"
+                //System.out.print("- ");
+                //System.out.print(i+j + " ");
+                printPiece(chessPieces[i][j], possibleMoves[i][j]);//imprimindo a Piece na posição da matriz informada
+            }
+            System.out.println(); //pulando uma linha para imprimir a proxima linha do for
+        }
+
+        System.out.println("                _______________");
+        System.out.println("                | | | | | | | |");
+        System.out.print("                A B C D E F G H"); //imprimindo as colunas no final do tabuleiro
+        System.out.println();
+    }
+
+
 
     public static class PieceSymbolFactory {
         private static final int whiteKing = 2654;

@@ -9,9 +9,10 @@ import java.util.Scanner;
 
 public class MainProgram {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
+        Scanner scanner = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
+
         while (true) {
             try {
                 UI.clearScreen();
@@ -19,6 +20,10 @@ public class MainProgram {
                 System.out.println("");
                 System.out.print("Digite a posição de origem: ");
                 ChessPosition source = UI.readChessPosition(scanner);
+
+                boolean[][] possibleMoves = chessMatch.possibleChessMoves(source);
+                UI.clearScreen();
+                UI.printBoard(chessMatch.getPieces(), possibleMoves);
 
                 System.out.print("Digite a posição de destino: ");
                 ChessPosition destino = UI.readChessPosition(scanner);
