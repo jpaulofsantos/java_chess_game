@@ -1,6 +1,7 @@
 package application;
 
 import boardgame.Piece;
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
@@ -48,6 +49,12 @@ public class UI {
         } catch (RuntimeException e) {
             throw new InputMismatchException("Erro. Dados devem ser entre a1 e h8");
         }
+    }
+
+    public static void printMatch(ChessMatch chessMatch) {
+        printBoard(chessMatch.getPieces());
+        System.out.println("Turno: " + chessMatch.getTurn());
+        System.out.println("Waiting Player: " + chessMatch.getCurrentPlayer());
     }
 
     public static void printBoard(ChessPiece[][] chessPieces) {
