@@ -1,10 +1,12 @@
 package chess;
 
 import boardgame.Board;
-import boardgame.BoardException;
 import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChessMatch {
 
@@ -12,6 +14,9 @@ public class ChessMatch {
     private Color currentPlayer;
 
     private Board board;
+
+    private List<Piece> piecesOnTheBoard = new ArrayList<>();
+    private List<Piece> capturedPieces = new ArrayList<>();
 
     public ChessMatch() {
         board = new Board(8,8);
@@ -35,6 +40,7 @@ public class ChessMatch {
 
     private void placeNewPiece(char column, int row, ChessPiece piece) { //método passando as posições do xadrez (a8) ao inves da matriz
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
+        piecesOnTheBoard.add(piece);
     }
 
     public boolean[][] possibleChessMoves(ChessPosition sourcePosition) {
@@ -55,6 +61,7 @@ public class ChessMatch {
         nextTurn();
 
         return (ChessPiece) capturedPiece;
+
     }
 
     private void validateTargetPosition(Position source, Position target) {
@@ -68,6 +75,11 @@ public class ChessMatch {
         Piece p = board.removePiece(source);
         Piece capturedPiece = board.removePiece(target);
         board.placePiece(p, target);
+
+        if (capturedPiece != null) {
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+        }
 
         return capturedPiece;
     }

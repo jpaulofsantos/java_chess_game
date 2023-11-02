@@ -4,7 +4,10 @@ import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 
+
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainProgram {
@@ -12,11 +15,15 @@ public class MainProgram {
 
         Scanner scanner = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
+        List<ChessPiece> listCapturedChessPieces = new ArrayList<>();
+
+        //System.out.println(("Classpath: "));
+        //System.out.println(System.getProperty("java.class.path"));
 
         while (true) {
             try {
                 UI.clearScreen();
-                UI.printMatch(chessMatch);
+                UI.printMatch(chessMatch, listCapturedChessPieces);
                 System.out.println("");
                 System.out.print("Digite a posição de origem: ");
                 ChessPosition source = UI.readChessPosition(scanner);
@@ -29,7 +36,12 @@ public class MainProgram {
                 System.out.print("Digite a posição de destino: ");
                 ChessPosition destino = UI.readChessPosition(scanner);
 
-                chessMatch.performeChessMove(source, destino);
+                ChessPiece chessPiece = chessMatch.performeChessMove(source, destino);
+
+                if (chessPiece != null) {
+                    listCapturedChessPieces.add(chessPiece);
+                }
+
             } catch (ChessException e) {
                 System.out.println(e.getMessage());
                 scanner.nextLine();
