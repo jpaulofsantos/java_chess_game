@@ -20,7 +20,7 @@ public class MainProgram {
         //System.out.println(("Classpath: "));
         //System.out.println(System.getProperty("java.class.path"));
 
-        while (true) {
+        while (!chessMatch.getCheckMate()) {
             try {
                 UI.clearScreen();
                 UI.printMatch(chessMatch, listCapturedChessPieces);
@@ -50,5 +50,6 @@ public class MainProgram {
                 scanner.nextLine();
             }
         }
+        UI.printMatch(chessMatch, listCapturedChessPieces);
     }
 }
