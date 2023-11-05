@@ -27,18 +27,49 @@ public class Pawn extends ChessPiece {
 
         Position p = new Position(0,0);
 
-        //above
-        p.setValues(position.getRow()-1, position.getColumn());
-        if (getBoard().positionExists(p) && canMove(p)) {
-            matriz[p.getRow()][p.getColumn()] = true;
-        }
+        if (getColor() == Color.BLACK) {
+            p.setValues(position.getRow()-1, position.getColumn());
+            if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+                matriz[p.getRow()][p.getColumn()] = true;
+            }
 
-        //below
-        p.setValues(position.getRow()+1, position.getColumn());
-        if (getBoard().positionExists(p) && canMove(p)) {
-            matriz[p.getRow()][p.getColumn()] = true;
-        }
+            p.setValues(position.getRow()-2, position.getColumn()); //pegando a posição 2 linhas acima para as validações
+            Position p2 = new Position(position.getRow()-1, position.getColumn()); //pegando a posição 1 linha acima para as validações
+            if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p) && getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2) && getMoveCount() == 0) {
+                matriz[p.getRow()][p.getColumn()] = true;
+            }
 
+            p.setValues(position.getRow()-1, position.getColumn()-1);
+            if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+                matriz[p.getRow()][p.getColumn()] = true;
+            }
+
+            p.setValues(position.getRow()-1, position.getColumn()+1);
+            if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+                matriz[p.getRow()][p.getColumn()] = true;
+            }
+        } else {
+            p.setValues(position.getRow()+1, position.getColumn());
+            if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+                matriz[p.getRow()][p.getColumn()] = true;
+            }
+
+            p.setValues(position.getRow()+2, position.getColumn()); //pegando a posição 2 linhas acima para as validações
+            Position p2 = new Position(position.getRow()+1, position.getColumn()); //pegando a posição 1 linha acima para as validações
+            if (getBoard().positionExists(p) && !getBoard().thereIsAPiece(p) && getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2) && getMoveCount() == 0) {
+                matriz[p.getRow()][p.getColumn()] = true;
+            }
+
+            p.setValues(position.getRow()+1, position.getColumn()-1);
+            if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+                matriz[p.getRow()][p.getColumn()] = true;
+            }
+
+            p.setValues(position.getRow()+1, position.getColumn()+1);
+            if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
+                matriz[p.getRow()][p.getColumn()] = true;
+            }
+        }
         return matriz;
     }
 }

@@ -8,11 +8,10 @@ import chess.pieces.Rook;
 public abstract class ChessPiece extends Piece {
 
     private Color color;
-    private Integer moveCount; //começa com o valor 0, então não é necessário inicializar no construtor
+    private int moveCount; //começa com o valor 0, então não é necessário inicializar no construtor
     public ChessPiece(Board board, Color color) {
         super(board);
         this.color = color;
-        moveCount = 0;
     }
 
     public ChessPosition getChessPosition() {
@@ -29,11 +28,12 @@ public abstract class ChessPiece extends Piece {
     }
 
     protected void increaseMoveCount() {
-        moveCount+=moveCount;
+        moveCount++;
+        //System.out.println("Count: " + moveCount);
     }
 
     protected void decreaseMoveCount() {
-        moveCount-=moveCount;
+        moveCount--;
     }
 
     public int getMoveCount() {
